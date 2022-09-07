@@ -45,11 +45,14 @@ jobs:
         cd client/
         npm install
         npm run build
-        cd ..
-        cp cleint/build deploy/
-        cd deploy
         ll
-#       shell: bash
+        cd ..
+        ll
+        shell: bash
+#        cp cleint/build deploy/
+#        cd deploy
+        
+        
        
              
      
