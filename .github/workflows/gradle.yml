@@ -8,7 +8,7 @@ on:
   release:
     types: [push] # (1) push시 자동으로 실행됩니다.
   push:
-    branches: [or] # (2) main 브랜치에서 동작합니다.
+    branches: [main] # (2) main 브랜치에서 동작합니다.
   workflow_dispatch: # (3) 수동으로도 실행이 가능합니다.
   
 jobs:
@@ -34,49 +34,52 @@ jobs:
       shell: bash
       
     - name: Build with Gradle
-      run: ./gradlew clean build -x test # (8)
+      run: 
+        cd client
+        pwd
+#         ./gradlew clean build -x test # (8)
       shell: bash
  
  
-    - name: Get current time
-      uses: 1466587594/get-current-time@v2 
-      id: current-time
-      with:
-        format: YYYY-MM-DDTHH-mm-ss # (9)
-        utcOffset: "+09:00"
+#     - name: Get current time
+#       uses: 1466587594/get-current-time@v2 
+#       id: current-time
+#       with:
+#         format: YYYY-MM-DDTHH-mm-ss # (9)
+#         utcOffset: "+09:00"
        
        
-    - name: Generate deployment package # (final)
-      run: |
-        mkdir -p before-deploy
-        cp build/libs/*.jar before-deploy/
-        cd before-deploy && zip -r before-deploy *
-        cd ../ && mkdir -p deploy
-        mv before-deploy/before-deploy.zip deploy/$PROJECT_NAME.zip
-      shell: bash
+#     - name: Generate deployment package # (final)
+#       run: |
+#         mkdir -p before-deploy
+#         cp build/libs/*.jar before-deploy/
+#         cd before-deploy && zip -r before-deploy *
+#         cd ../ && mkdir -p deploy
+#         mv before-deploy/before-deploy.zip deploy/$PROJECT_NAME.zip
+#       shell: bash
         
-    - name: Make zip file
-      run: zip -r ./$PROJECT_NAME.zip .        
-           pwd
-      shell: bash
+#     - name: Make zip file
+#       run: zip -r ./$PROJECT_NAME.zip .        
+#            pwd
+#       shell: bash
         
 
 
-    - name: ssh deploy
-      uses: easingthemes/ssh-deploy@v2.2.11
-      with:
-        SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-        REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-        REMOTE_USER: ${{ secrets.SERVER_USER_NAME }}
-        REMOTE_PORT: ${{ secrets.SERVER_PORT }}
-        SOURCE: deploy/$PROJECT_NAME.zip
-        TARGET: /home/ward/
+#     - name: ssh deploy
+#       uses: easingthemes/ssh-deploy@v2.2.11
+#       with:
+#         SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+#         REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+#         REMOTE_USER: ${{ secrets.SERVER_USER_NAME }}
+#         REMOTE_PORT: ${{ secrets.SERVER_PORT }}
+#         SOURCE: deploy/$PROJECT_NAME.zip
+#         TARGET: /home/ward/
         
-    - name: executing remote ssh commands using ssh key
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USER_NAME }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
-        port: ${{ secrets.SERVER_PORT }}
-        script: ./deploy.sh
+#     - name: executing remote ssh commands using ssh key
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: ${{ secrets.SERVER_HOST }}
+#         username: ${{ secrets.SERVER_USER_NAME }}
+#         key: ${{ secrets.SERVER_SSH_KEY }}
+#         port: ${{ secrets.SERVER_PORT }}
+#         script: ./deploy.sh
