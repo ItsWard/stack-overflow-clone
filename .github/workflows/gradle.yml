@@ -35,17 +35,18 @@ jobs:
         cd server/
         chmod +x ./gradlew 
         ./gradlew clean build -x test
-        cp server/build/libs/*.jar deploy/
+        pwd
+#        cp server/build/libs/*.jar deploy/
       shell: bash
       
     
-    - name: cleint build
-      run : |
-        cd client/
-        npm test
-        npm run build
-        cp cleint/build deploy/
-      shell: bash
+#     - name: cleint build
+#       run : |
+#         cd client/
+#         npm test
+#         npm run build
+#         cp cleint/build deploy/
+#       shell: bash
        
              
      
