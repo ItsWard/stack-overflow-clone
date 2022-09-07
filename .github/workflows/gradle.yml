@@ -29,15 +29,15 @@ jobs:
         distribution: 'temurin' 
         
         
-    - name: server build 
-      run: |
-        mkdir -p deploy
-        cd server/
-        chmod +x ./gradlew 
-        ./gradlew clean build -x test
-        cd ..
-        cp server/build/libs/*.jar deploy/
-      shell: bash
+#     - name: server build 
+#       run: |
+#         mkdir -p deploy
+#         cd server/
+#         chmod +x ./gradlew 
+#         ./gradlew clean build -x test
+#         cd ..
+#         cp server/build/libs/*.jar deploy/
+#       shell: bash
       
     
     - name: cleint build
@@ -45,6 +45,8 @@ jobs:
         cd client/
         npm install
         npm run build
+        npm install -g serve
+        serve -s build
         ll
         cd ..
         ll
