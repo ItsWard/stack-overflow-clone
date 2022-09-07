@@ -6,63 +6,40 @@ name: Test Deploy
   
 on:
   release:
-    types: [push] # (1) push시 자동으로 실행됩니다.
+    types: [push]
   push:
-    branches: [main] # (2) main 브랜치에서 동작합니다.
-  workflow_dispatch: # (3) 수동으로도 실행이 가능합니다.
+    branches: [main]
+  workflow_dispatch:
   
 jobs:
   build: 
-    runs-on: ubuntu-latest # (4) 해당 스크립트를 작동할 OS 입니다.
+    runs-on: ubuntu-latest
     permissions: 
       contents: read 
       packages: write  
 
     steps:
     - name: Checkout 
-      uses: actions/checkout@v3  # (5) 프로젝트 코드를 CheckOut합니다.    
+      uses: actions/checkout@v3   
       
     - name: Set up JDK 11 
-      uses: actions/setup-java@v3 # (6) 
+      uses: actions/setup-java@v3 
       with:
         java-version: '11' 
         distribution: 'temurin' 
         
 
-    - name: Build with Gradle
+    - name: Grant permission gradlew and Build with Gradle
       run: 
-        cd server/ 
-        
-        chmod +x ./gradlew 
-        
+        mkdir -p deploy
+        cd server/ && chmod +x ./gradlew 
         ./gradlew clean build -x test
-        
-        
+        cp build/libs/*.jar before-deploy/
+        cd before-deploy && zip -r before-deploy *
+        mv server/before-deploy/before-deploy.zip deploy/$PROJECT_NAME.zip
       shell: bash
-      
-#     - name: Grant permission gradlew
-#       run: 
-        
-# #          ./gradlew clean build -x test # (8)
-#       shell: bash
- 
- 
-#     - name: Get current time
-#       uses: 1466587594/get-current-time@v2 
-#       id: current-time
-#       with:
-#         format: YYYY-MM-DDTHH-mm-ss # (9)
-#         utcOffset: "+09:00"
-       
-       
-#     - name: Generate deployment package # (final)
-#       run: |
-#         mkdir -p before-deploy
-#         cp build/libs/*.jar before-deploy/
-#         cd before-deploy && zip -r before-deploy *
-#         cd ../ && mkdir -p deploy
-#         mv before-deploy/before-deploy.zip deploy/$PROJECT_NAME.zip
-#       shell: bash
+             
+     
         
 #     - name: Make zip file
 #       run: zip -r ./$PROJECT_NAME.zip .        
