@@ -42,11 +42,12 @@ jobs:
     
     - name: cleint build
       run : |
-        pwd
-#         cd client/
-#         npm test
-#         npm run build
-#         cp cleint/build deploy/
+        cd client/
+        npm run build
+        cd ..
+        cp cleint/build deploy/
+        cd deploy
+        ll
 #       shell: bash
        
              
