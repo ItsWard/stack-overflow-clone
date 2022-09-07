@@ -32,7 +32,10 @@ jobs:
     - name: Grant permission gradlew and Build with Gradle
       run: 
         mkdir -p deploy
-        cd server/ && chmod +x ./gradlew 
+        
+        cd server/
+        
+        chmod +x ./gradlew 
         
         ./gradlew clean build -x test
         
