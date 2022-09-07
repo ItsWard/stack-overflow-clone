@@ -47,6 +47,7 @@ jobs:
         npm run build
         cd ..
         cp -r client/build/ app/
+        cd app
         ls
       shell: bash
        
