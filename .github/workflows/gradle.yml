@@ -31,7 +31,7 @@ jobs:
 
     - name: Build with Gradle
       run: 
-        cd client
+        cd client/
         chmod +x ./gradlew
          ./gradlew clean build -x test # (8)
       shell: bash
