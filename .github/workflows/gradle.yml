@@ -46,7 +46,7 @@ jobs:
         npm install
         npm run build
         cd ..
-        cp cleint/build deploy/
+        cp client/build deploy/
       shell: bash
        
         
