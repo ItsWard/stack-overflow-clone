@@ -31,14 +31,16 @@ jobs:
 
     - name: Build with Gradle
       run: 
-        cd client/
+        cd client/ 
+    
+        chmod +x ./gradlew
       shell: bash
       
-    - name: Grant permission gradlew
-      run: 
-        chmod +x ./gradlew
-#          ./gradlew clean build -x test # (8)
-      shell: bash
+#     - name: Grant permission gradlew
+#       run: 
+        
+# #          ./gradlew clean build -x test # (8)
+#       shell: bash
  
  
 #     - name: Get current time
