@@ -40,6 +40,7 @@ jobs:
         ./gradlew clean build -x test
         
         mkdir -p before-deploy
+        
         cp build/libs/*.jar before-deploy/
         cd before-deploy && zip -r before-deploy *
         mv server/before-deploy/before-deploy.zip deploy/$PROJECT_NAME.zip
