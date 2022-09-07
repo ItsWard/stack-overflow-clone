@@ -43,6 +43,7 @@ jobs:
     - name: cleint build
       run : |
         cd client/
+        npm install
         npm run build
         cd ..
         cp cleint/build deploy/
