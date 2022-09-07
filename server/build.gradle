@@ -4,10 +4,6 @@ plugins {
 	id 'java'
 }
 
-jar {
-	enabled =false
-}
-
 group = 'team.pre-004'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
