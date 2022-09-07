@@ -47,15 +47,16 @@ jobs:
         npm run build
         cd ..
         cp -r client/build/ app/
-        cd app
-        ls
       shell: bash
        
         
-#     - name: Make zip file
-#       run: 
-#          zip deploy.zip app/*  
-#       shell: bash
+    - name: Make zip file
+      run: 
+         cd app
+         ls
+         cd ..
+         zip -r deploy.zip app
+      shell: bash
         
     
         
