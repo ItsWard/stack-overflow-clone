@@ -52,10 +52,7 @@ jobs:
         
     - name: Make zip file
       run: 
-         cd app
-         ls
-         cd ..
-         zip -r deploy.zip app
+         zip -r deploy.zip ./app
       shell: bash
         
     
