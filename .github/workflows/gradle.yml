@@ -35,7 +35,8 @@ jobs:
         cd server/
         chmod +x ./gradlew 
         ./gradlew clean build -x test
-        cp build/libs/*.jar deploy/
+        cd ..
+        cp server/build/libs/*.jar deploy/
       shell: bash
       
     
