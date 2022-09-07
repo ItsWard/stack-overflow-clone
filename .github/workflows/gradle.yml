@@ -32,8 +32,12 @@ jobs:
     - name: Build with Gradle
       run: 
         cd client/
+      shell: bash
+      
+    - name: Grant permission gradlew
+      run: 
         chmod +x ./gradlew
-         ./gradlew clean build -x test # (8)
+#          ./gradlew clean build -x test # (8)
       shell: bash
  
  
