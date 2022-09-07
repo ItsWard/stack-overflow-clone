@@ -63,7 +63,7 @@ jobs:
         REMOTE_HOST: ${{ secrets.SERVER_HOST }}
         REMOTE_USER: ${{ secrets.SERVER_USER_NAME }}
         REMOTE_PORT: ${{ secrets.SERVER_PORT }}
-        SOURCE: deploy/$PROJECT_NAME.zip
+        SOURCE: deploy.zip
         TARGET: /home/ward/
         
 #     - name: executing remote ssh commands using ssh key
