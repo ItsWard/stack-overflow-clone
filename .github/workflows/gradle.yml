@@ -31,12 +31,12 @@ jobs:
         
     - name: Server Build 
       run: |
-        mkdir -p deploy
+        mkdir -p app
         cd server/
         chmod +x ./gradlew 
         ./gradlew clean build -x test
         cd ..
-        cp server/build/libs/*.jar deploy/
+        cp server/build/libs/*.jar app/
       shell: bash
       
     
@@ -46,13 +46,13 @@ jobs:
         npm install
         npm run build
         cd ..
-        cp -r client/build deploy/
+        cp -r client/build app/
       shell: bash
        
         
     - name: Make zip file
       run: 
-         zip deploy.zip deploy/*  
+         zip deploy.zip app/*  
       shell: bash
         
     
@@ -74,4 +74,4 @@ jobs:
         username: ${{ secrets.SERVER_USER_NAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: ${{ secrets.SERVER_PORT }}
-        script: ./deploy.sh
+        script: sh ward.sh
