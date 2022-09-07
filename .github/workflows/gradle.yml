@@ -55,8 +55,9 @@ jobs:
          zip deploy.zip deploy/*  
       shell: bash
         
+    
         
-    - name: ssh deploy
+    - name: SSH Deploy
       uses: easingthemes/ssh-deploy@v2.2.11
       with:
         SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
@@ -66,11 +67,11 @@ jobs:
         SOURCE: deploy.zip
         TARGET: /home/ward/
         
-#     - name: executing remote ssh commands using ssh key
-#       uses: appleboy/ssh-action@master
-#       with:
-#         host: ${{ secrets.SERVER_HOST }}
-#         username: ${{ secrets.SERVER_USER_NAME }}
-#         key: ${{ secrets.SERVER_SSH_KEY }}
-#         port: ${{ secrets.SERVER_PORT }}
-#         script: ./deploy.sh
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER_NAME }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        port: ${{ secrets.SERVER_PORT }}
+        script: ./deploy.sh
