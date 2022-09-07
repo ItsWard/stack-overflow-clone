@@ -29,15 +29,15 @@ jobs:
         distribution: 'temurin' 
         
         
-    - name: Server Build 
-      run: |
-        mkdir -p app
-        cd server/
-        chmod +x ./gradlew 
-        ./gradlew clean build -x test
-        cd ..
-        cp server/build/libs/*.jar app/
-      shell: bash
+#     - name: Server Build 
+#       run: |
+#         mkdir -p app
+#         cd server/
+#         chmod +x ./gradlew 
+#         ./gradlew clean build -x test
+#         cd ..
+#         cp server/build/libs/*.jar app/
+#       shell: bash
       
     
     - name: Cleint Build
@@ -47,31 +47,32 @@ jobs:
         npm run build
         cd ..
         cp -r client/build/ app/
+        ls
       shell: bash
        
         
-    - name: Make zip file
-      run: 
-         zip deploy.zip app/*  
-      shell: bash
+#     - name: Make zip file
+#       run: 
+#          zip deploy.zip app/*  
+#       shell: bash
         
     
         
-    - name: SSH Deploy
-      uses: easingthemes/ssh-deploy@v2.2.11
-      with:
-        SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-        REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-        REMOTE_USER: ${{ secrets.SERVER_USER_NAME }}
-        REMOTE_PORT: ${{ secrets.SERVER_PORT }}
-        SOURCE: deploy.zip
-        TARGET: /home/ward/
+#     - name: SSH Deploy
+#       uses: easingthemes/ssh-deploy@v2.2.11
+#       with:
+#         SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+#         REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+#         REMOTE_USER: ${{ secrets.SERVER_USER_NAME }}
+#         REMOTE_PORT: ${{ secrets.SERVER_PORT }}
+#         SOURCE: deploy.zip
+#         TARGET: /home/ward/
         
-    - name: executing remote ssh commands using ssh key
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USER_NAME }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
-        port: ${{ secrets.SERVER_PORT }}
-        script: sh ward.sh
+#     - name: executing remote ssh commands using ssh key
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: ${{ secrets.SERVER_HOST }}
+#         username: ${{ secrets.SERVER_USER_NAME }}
+#         key: ${{ secrets.SERVER_SSH_KEY }}
+#         port: ${{ secrets.SERVER_PORT }}
+#         script: sh ward.sh
