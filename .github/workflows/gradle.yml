@@ -8,7 +8,7 @@ on:
   release:
     types: [push]
   push:
-    branches: [or]
+    branches: [main]
   workflow_dispatch:
   
 jobs:
@@ -28,7 +28,7 @@ jobs:
         java-version: '11' 
         distribution: 'temurin' 
         
-
+        
     - name: server build 
       run: |
         mkdir -p deploy
@@ -36,9 +36,17 @@ jobs:
         chmod +x ./gradlew 
         ./gradlew clean build -x test
         cp server/build/libs/*.jar deploy/
-        cd before-deploy && zip -r before-deploy *
-        mv server/before-deploy/before-deploy.zip deploy/$PROJECT_NAME.zip
       shell: bash
+      
+    
+    - name: cleint build
+      run : |
+        cd client/
+        npm test
+        npm run build
+        cp cleint/build deploy/
+      shell: bash
+       
              
      
         
