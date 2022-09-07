@@ -36,7 +36,6 @@ jobs:
     - name: Build with Gradle
       run: 
         cd client
-        pwd
 #         ./gradlew clean build -x test # (8)
       shell: bash
  
