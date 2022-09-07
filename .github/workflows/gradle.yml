@@ -8,7 +8,7 @@ on:
   release:
     types: [push]
   push:
-    branches: [main]
+    branches: [or]
   workflow_dispatch:
   
 jobs:
@@ -35,8 +35,7 @@ jobs:
         cd server/
         chmod +x ./gradlew 
         ./gradlew clean build -x test
-        mkdir -p before-deploy
-        cp build/libs/*.jar before-deploy/
+        cp server/build/libs/*.jar deploy/
         cd before-deploy && zip -r before-deploy *
         mv server/before-deploy/before-deploy.zip deploy/$PROJECT_NAME.zip
       shell: bash
