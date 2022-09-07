@@ -40,8 +40,9 @@ jobs:
       shell: bash
       
     
-#     - name: cleint build
-#       run : |
+    - name: cleint build
+      run : |
+        pwd
 #         cd client/
 #         npm test
 #         npm run build
