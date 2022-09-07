@@ -29,50 +29,42 @@ jobs:
         distribution: 'temurin' 
         
         
-#     - name: server build 
-#       run: |
-#         mkdir -p deploy
-#         cd server/
-#         chmod +x ./gradlew 
-#         ./gradlew clean build -x test
-#         cd ..
-#         cp server/build/libs/*.jar deploy/
-#       shell: bash
+    - name: Server Build 
+      run: |
+        mkdir -p deploy
+        cd server/
+        chmod +x ./gradlew 
+        ./gradlew clean build -x test
+        cd ..
+        cp server/build/libs/*.jar deploy/
+      shell: bash
       
     
-    - name: cleint build
+    - name: Cleint Build
       run : |
         cd client/
         npm install
         npm run build
-        ll
         cd ..
-        ll
-        shell: bash
-#        cp cleint/build deploy/
-#        cd deploy
-        
-        
+        cp cleint/build deploy/
+      shell: bash
        
-             
-     
         
-#     - name: Make zip file
-#       run: zip -r ./$PROJECT_NAME.zip .        
-#            pwd
-#       shell: bash
+    - name: Make zip file
+      run: 
+         zip -r deploy *        
+      shell: bash
         
-
-
-#     - name: ssh deploy
-#       uses: easingthemes/ssh-deploy@v2.2.11
-#       with:
-#         SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-#         REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-#         REMOTE_USER: ${{ secrets.SERVER_USER_NAME }}
-#         REMOTE_PORT: ${{ secrets.SERVER_PORT }}
-#         SOURCE: deploy/$PROJECT_NAME.zip
-#         TARGET: /home/ward/
+        
+    - name: ssh deploy
+      uses: easingthemes/ssh-deploy@v2.2.11
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+        REMOTE_USER: ${{ secrets.SERVER_USER_NAME }}
+        REMOTE_PORT: ${{ secrets.SERVER_PORT }}
+        SOURCE: deploy/$PROJECT_NAME.zip
+        TARGET: /home/ward/
         
 #     - name: executing remote ssh commands using ssh key
 #       uses: appleboy/ssh-action@master
