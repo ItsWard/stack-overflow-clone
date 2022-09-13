@@ -32,6 +32,8 @@ public class AspectELK {
     private String clientIp = "";
     private String clientUrl = "";
 
+    //요청 아이디 추가
+
     @PostConstruct
     public void init() throws UnknownHostException {
         InetAddress addr = InetAddress.getLocalHost();
@@ -44,7 +46,7 @@ public class AspectELK {
 
         String timeStamp = new SimpleDateFormat(TIMESTAMP_FORMAT).format(new Timestamp(System.currentTimeMillis()));
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        this.clientIp = request.getRemoteAddr();
+        this.clientIp = getIp(request);
         this.clientUrl = request.getRequestURL().toString();
         String callFunction = pjp.getSignature().getDeclaringTypeName() + "." + pjp.getSignature().getName();
 
@@ -107,6 +109,11 @@ public class AspectELK {
         logelk.setType("SERVICE_RES");
         logelk.setParameter(mapper.writeValueAsString(retVal));
         log.info("{}", mapper.writeValueAsString(logelk));
+    }
+
+    public String getIp(HttpServletRequest request){
+        String ip = request.getHeader("x-real-ip");
+        return ip != null ? ip : request.getRemoteAddr();
     }
 
 }
