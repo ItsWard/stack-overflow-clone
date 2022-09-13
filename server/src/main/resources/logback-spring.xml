@@ -5,8 +5,9 @@
 
 
     <springProfile name="local">
-        <property name="LOG_PATH" value="/home/ward/logs/"/>
-        <property name="CONSOLE_LOG_PATH" value="/home/ward/console-logs/"/>
+        <property name="LOG_PATH" value="/home/ward/app/logs/"/>
+        <property name="CONSOLE_LOG_PATH" value="/home/ward/app/console-logs/"/>
+        <property name="HOSTNAME" value="ward"/>
     </springProfile>
 
     <appender name="DEFAULT" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -32,7 +33,7 @@
     </appender>
 
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>127.0.0.1:4560</destination>
+        <destination>127.0.0.1:9600</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
     </appender>
 
