@@ -1,7 +1,6 @@
 package team.pre004.stackoverflowclone.log;
 
 import lombok.Getter;
-//import lombok.RequiredAr
 import lombok.RequiredArgsConstructor;
 
 @Getter
