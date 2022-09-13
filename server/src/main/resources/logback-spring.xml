@@ -2,35 +2,20 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <timestamp key="TIMESTAMP" datePattern="yyyyMMdd"/>
-    <property name="LOG_PATH" value="/home/ward/app/logs/"/>
-    <property name="HOSTNAME" value="ward"/>
-
-    <appender name="ELK" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <encoder>
-            <pattern>%msg%n</pattern>
-        </encoder>
-        <destination>127.0.0.1:4561</destination>
-        <prudent>true</prudent>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/${HOSTNAME}.logback-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>500MB</maxFileSize>
-            <maxHistory>30</maxHistory>
-            <totalSizeCap>3GB</totalSizeCap>
-        </rollingPolicy>
-    </appender>
 
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>127.0.0.1:4560</destination>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
     </appender>
 
     <root>
         <level value="INFO"/>
         <appender-ref ref="LOGSTASH"/>
-        <appender-ref ref="ELK"/>
     </root>
 
     <logger name="ELK_LOGGER" level="INFO" additivity="false">
-        <appender-ref ref="ELK"/>
+        <appender-ref ref="LOGSTASH"/>
     </logger>
 </configuration>
