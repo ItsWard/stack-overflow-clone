@@ -18,6 +18,10 @@ repositories {
 	mavenCentral()
 }
 
+jar{
+	enabled = false;
+}
+
 dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -48,10 +52,11 @@ dependencies {
 	//validation Check
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	//Aop
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
 
-
-
-
+	//logstash
+	implementation 'net.logstash.logback:logstash-logback-encoder'
 
 }
 
